@@ -450,17 +450,17 @@ user.Tags = new[] { new UserTag { TagId = 3 /* Tag C */ } };
 user.Groups = new[] { new UserGroup { GroupId = 1 /* Group 1 */ }, new UserGroup { GroupId = 2 /* Group 2 */ } };
 ```
 
-## Dapper
+## Stored Procedures
+
+EF Core executes stored procs by using `ExecuteSql` which means this would not work with in memory and the SQL would not
+be provider agnostic. Ideally we'd like to find a way that works across all of ADO .NET.
+
+## To-Do
+
+### Find out if Dapper bulk delete works
 
 Dapper has bulk delete: https://dapper-tutorial.net/bulk-delete
 
 It's not clear whether it allows skipping materialization for this. The delete many example makes it look like it does,
 but it might still materialize and then delete as objects, which is what EF can do as well.
 In case of Dapper though, it probably doesn't respect the EF Core transaction.
-
-- [ ] Find this out
-
-## Stored Procedures
-
-EF Core executes stored procs by using `ExecuteSql` which means this would not work with in memory and the SQL would not
-be provider agnostic. Ideally we'd like to find a way that works across all of ADO .NET.
